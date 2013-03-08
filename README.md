@@ -14,11 +14,11 @@ gauth is simple to use and only offers 3 commands: get, set, and delete.
 
 Generates a one-time-password for the specified name (account). The password is automatically copied into your clipboard, so you can hit Ctrl+V or right-click + PASTE.
 
-> gauth.exe set -n \<name\> -k \<key\>
+> **gauth.exe set -n \<name\> -k \<key\>**
 
 Sets the key of the specified name. If the name already exists, then the key will be updated.
 
-> gauth.exe del -n \<name\>
+> **gauth.exe del -n \<name\>**
 
 Deletes name and key from the local storage file (".gauth").
 
