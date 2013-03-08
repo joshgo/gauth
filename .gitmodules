@@ -1,0 +1,3 @@
+[submodule "submodules/GoogleAuthenticator"]
+	path = submodules/GoogleAuthenticator
+	url = https://github.com/joshgo/GoogleAuthenticator.git
