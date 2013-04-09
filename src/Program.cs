@@ -28,30 +28,33 @@ namespace gauth
 
 			if (!CommandLine.Parser.Default.ParseArguments(args, options, onVerbCommand))
 			{
-				if (!help)
-					Console.Error.WriteLine("Error on parsing arguments");
-
-				Console.Error.WriteLine(Options.Usage());
-
 				Environment.Exit(CommandLine.Parser.DefaultExitCodeFail);
 			}
 
-			KeyManager manager = new KeyManager(".gauth");
+			try
+			{
+				KeyManager manager = new KeyManager(".gauth");
 
-			if (baseOption is GetOption)
-			{
-				var code = manager.Get(baseOption.Name);
-				Console.WriteLine(code);
-				System.Windows.Clipboard.SetText(code);
+				if (baseOption is GetOption)
+				{
+					var code = manager.Get(baseOption.Name);
+					Console.WriteLine(code);
+					System.Windows.Clipboard.SetText(code);
+				}
+				else if (baseOption is SetOption)
+				{
+					var setOption = baseOption as SetOption;
+					manager.Set(setOption.Name, setOption.Key);
+				}
+				else if (baseOption is DelOption)
+				{
+					manager.Del(baseOption.Name);
+				}
 			}
-			else if (baseOption is SetOption)
+			catch (Exception e)
 			{
-				var setOption = baseOption as SetOption;
-				manager.Set(setOption.Name, setOption.Key);
-			}
-			else if (baseOption is DelOption)
-			{
-				manager.Del(baseOption.Name);
+				Console.Error.WriteLine(e.Message);
+				Environment.Exit(1);
 			}
 		}
 	}

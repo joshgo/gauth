@@ -10,9 +10,17 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("")]
 [assembly: AssemblyProduct("gauth")]
-[assembly: AssemblyCopyright("Copyright ©  2013")]
+[assembly: AssemblyCopyright("Copyright ©  2013 - joshgo")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
+
+[assembly: CommandLine.AssemblyLicense(
+	"This is free software. You may redistribute copies of it under the terms of",
+	"the MIT License <http://www.opensource.org/licenses/mit-license.php>.\n")]
+[assembly: CommandLine.AssemblyUsage(
+	"Usage: gauth set -n <name> -k <key>",
+	"       gauth get -n <name>",
+	"       gauth del -n <name>")]
 
 // Setting ComVisible to false makes the types in this assembly not visible 
 // to COM components.  If you need to access a type in this assembly from 

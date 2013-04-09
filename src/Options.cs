@@ -14,16 +14,14 @@ namespace gauth
 		[CommandLine.VerbOption("del", HelpText = "Deletes the private key for specified name")]
 		public DelOption DelOption { get; set; }
 
-		[CommandLine.HelpVerbOption("help")]
-		public static string Usage()
+		[CommandLine.HelpVerbOption()]
+		public string Usage(string verb)
 		{
-			return
-				"GAuth command usage:\n\n" + 
-				"gauth help\n\n" +
-				"gauth set -n <name> -k <key>\n" +
-				"   sets the key for the specified account name\n\n" +
-				"gauth get -n <name>\n" +
-				"   gets the one-time-password for the specified name\n\n";
+			if (verb == null)
+				return CommandLine.Text.HelpText.AutoBuild(this, 
+					current => CommandLine.Text.HelpText.DefaultParsingErrorsHandler(this, current));
+
+			return CommandLine.Text.HelpText.AutoBuild(this, verb);
 		}
 	}
 

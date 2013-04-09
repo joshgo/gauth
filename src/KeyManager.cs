@@ -41,6 +41,23 @@ namespace gauth
 
 		public void Set(string name, string key)
 		{
+			if (name == null || name.Trim().Length == 0)
+				throw new ArgumentException("[name] must be specified");
+			if (key == null || key.Trim().Length == 0)
+				throw new ArgumentException("[key] must be specified");
+
+			string illegalCharacterMessage = "";
+			for(int i = 0; i < key.Trim().Length; i++)
+			{
+				if (key[i] == ' ')
+					continue;
+
+				if (!"ABCDEFGHIJKLMNOPQRSTUVWXYZ234567".Contains(char.ToUpper(key[i])))
+					illegalCharacterMessage += "Illegal character: " + key[i] + Environment.NewLine;
+			}
+			if (illegalCharacterMessage.Length > 0)
+				throw new ArgumentException("[key] contains illegal characters.\n" + illegalCharacterMessage);
+
 			m_accountKeys[name] = key;
 			Save();
 		}
@@ -50,7 +67,7 @@ namespace gauth
 			string key = "";
 
 			if (!m_accountKeys.TryGetValue(name, out key))
-				return "!! NOT FOUND !!";
+				throw new ArgumentException(string.Format("[{0}] not found", name));
 
 			var secret = GoogleAuthenticator.Base32String.Instance.Decode(key);
 			GoogleAuthenticator.PasscodeGenerator passgen = new GoogleAuthenticator.PasscodeGenerator(new System.Security.Cryptography.HMACSHA1(secret));
